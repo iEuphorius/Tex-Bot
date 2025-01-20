@@ -44,10 +44,14 @@ async def _roll(ctx, count, size, offset):
     rolls = [random.randint(offset+1, offset+size) for i in range(count)]  # eg for 20 with offset 3, generate values 4 to 23
     embed = discord.Embed(title=f'Dice for {count}d{size}+{offset}')
     embed.description = '\n'.join((f'dice #{i+1}: **{roll}**' for i, roll in enumerate(rolls)))
-    embed.add_field(name='sum', value=f'total = {sum(rolls)}')
-    await ctx.send(embed=embed)
+    embed.add_field(name = 'sum', value=f'total = {sum(rolls)}')
+    await ctx.send(embed = embed)
     
-    
-    
-    
+@bot.command()    
+async def attributes(ctx):
+    embed = discord.Embed(title=f'Rolling attributes!')
+    for i in range(6):
+        rolls = [random.randint(1,6) for i in range(3)]        
+        embed.add_field(name = 'Attribute', value={sum(rolls)}, inline=False)
+    await ctx.send(embed = embed)
 bot.run(TOKEN)
