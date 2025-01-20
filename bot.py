@@ -22,8 +22,8 @@ async def on_ready():
         f'{bot.user} is connected to the following guild:\n'
         f'{guild.name}(id: {guild.id})'
     )
-    """ members = '\n - '.join([member.name for member in guild.members])
-    print(f'Guild Members:\n - {members}') """
+    members = '\n - '.join([member.name for member in guild.members])
+    print(f'Guild Members:\n - {members}')
 
 # dice roll command
 @bot.command()
@@ -54,4 +54,5 @@ async def attributes(ctx):
         rolls = [random.randint(1,6) for i in range(3)]        
         embed.add_field(name = 'Attribute', value={sum(rolls)}, inline=False)
     await ctx.send(embed = embed)
+
 bot.run(TOKEN)
