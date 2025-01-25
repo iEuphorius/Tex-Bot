@@ -54,5 +54,11 @@ async def attributes(ctx):
         rolls = [random.randint(1,6) for i in range(3)]        
         embed.add_field(name = 'Attribute', value={sum(rolls)}, inline=False)
     await ctx.send(embed = embed)
+    
+@bot.command()    
+async def help(ctx):
+    print("use '!roll 1d4+1' to make a roll")
+    print("use '!attributes to roll your starting attributes")
+
 
 bot.run(TOKEN)
