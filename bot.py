@@ -41,7 +41,7 @@ async def roll(ctx, *, text: str):
     return await _roll(ctx, count, size, offset)
 
 async def _roll(ctx, count, size, offset):
-    rolls = [random.randint(offset+1, offset+size) for i in range(count)]  # eg for 20 with offset 3, generate values 4 to 23
+    rolls = [random.randint(1, size) for i in range(count)]  # eg for 20 with offset 3, generate values 4 to 23
     embed = discord.Embed(title=f'Dice for {count}d{size}+{offset}')
     embed.description = '\n'.join((f'dice #{i+1}: **{roll}**' for i, roll in enumerate(rolls)))
     embed.add_field(name = 'sum', value=f'total = {sum(rolls)+offset}')
