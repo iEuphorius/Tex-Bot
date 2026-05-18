@@ -33,6 +33,7 @@ async def roll(ctx, *, text: str):
         size, _, offset = text.partition('+')  # eg "34+56" -> "34", "+", "56"
     else:
         size, _, offset = text.partition('-')  # eg "34+56" -> "34", "+", "56"
+        offset = int(offset)
         offset = offset-(2 * offset)
     if offset == "":
         offset = 0
