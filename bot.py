@@ -29,12 +29,13 @@ async def on_ready():
 @bot.command()
 async def roll(ctx, *, text: str):
     count, _, text = text.partition('d')  # eg "12d34+56" -> "12", "d", "34+56"
-    if "+" in text:
-        size, _, offset = text.partition('+')  # eg "34+56" -> "34", "+", "56"
-    else:
+    if "-" in text:
         size, _, offset = text.partition('-')  # eg "34+56" -> "34", "+", "56"
         offset = int(offset)
-        offset = offset-(2 * offset)
+        offset = offset-(2 * offset)        
+    else:
+        size, _, offset = text.partition('+')  # eg "34+56" -> "34", "+", "56"
+        
     if offset == "":
         offset = 0
     try:
@@ -47,7 +48,13 @@ async def roll(ctx, *, text: str):
 
 async def _roll(ctx, count, size, offset):
     rolls = [random.randint(1, size) for i in range(count)]  # eg for 20 with offset 3, generate values 4 to 23
-    embed = discord.Embed(title=f'Dice for {count}d{size}+{offset}')
+    if offset > 0:
+        embed = discord.Embed(title=f'Dice for {count}d{size}+{offset}')
+    elif offset < 0:
+        embed = discord.Embed(title=f'Dice for {count}d{size}{offset}')
+    else:
+        embed = discord.Embed(title=f'Dice for {count}d{size}')
+    
     embed.description = '\n'.join((f'dice #{i+1}: **{roll}**' for i, roll in enumerate(rolls)))
     embed.add_field(name = 'sum', value=f'total = {sum(rolls)+offset}')
     await ctx.send(embed = embed)
